@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changes/V1__create_user_table.sql
+  - include:
+      file: db/changelog/changes/V2__create_checkin_record_table.sql
+  - include:
+      file: db/changelog/changes/V3__create_point_transaction_table.sql
