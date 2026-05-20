@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.nguyenhien.lotus_reward.modules.user.entities.User;
 
@@ -51,7 +51,7 @@ public class CheckinRecord {
     @Column(name = "checkin_order_in_month", nullable = false)
     private Integer checkinOrderInMonth;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 }
