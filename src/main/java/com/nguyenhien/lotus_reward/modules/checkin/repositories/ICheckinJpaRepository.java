@@ -13,4 +13,13 @@ public interface ICheckinJpaRepository extends JpaRepository<CheckinRecord, UUID
             UUID userId,
             LocalDate startDate,
             LocalDate endDate);
+
+    boolean existsByUserIdAndCheckinDate(
+            UUID userId,
+            LocalDate checkinDate);
+
+    long countByUserIdAndCheckinDateBetween(
+            UUID userId,
+            LocalDate startDate,
+            LocalDate endDate);
 }
