@@ -2,18 +2,22 @@ package com.nguyenhien.lotus_reward.modules.point.controllers;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nguyenhien.lotus_reward.modules.point.dtos.CustomResponse;
+import com.nguyenhien.lotus_reward.modules.point.dtos.DeductPointRequest;
+import com.nguyenhien.lotus_reward.modules.point.dtos.DeductPointResponse;
 import com.nguyenhien.lotus_reward.modules.point.dtos.PointTransactionResponse;
 import com.nguyenhien.lotus_reward.modules.point.dtos.PointTransactionSearchRequest;
 import com.nguyenhien.lotus_reward.modules.point.services.IPointTransactionService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -26,7 +30,10 @@ public class PointTransactionController {
 
     //Search pagination
     @GetMapping("/pagination")
-    public ResponseEntity<CustomResponse<PointTransactionResponse>> search(@ModelAttribute PointTransactionSearchRequest request) {
+    public ResponseEntity<CustomResponse<PointTransactionResponse>> search(
+            @ModelAttribute 
+            PointTransactionSearchRequest request
+    ) {
         Page<PointTransactionResponse> result = pointTransactionService.pagination(request);
                 // Convert to paged model
         var pagedModel = pagedResourcesAssembler.toModel(result);
@@ -37,5 +44,15 @@ public class PointTransactionController {
                 pagedModel.getLinks()
             );
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/deduct")
+    public DeductPointResponse deductPoint(
+            @Valid
+            @RequestBody
+            DeductPointRequest request
+    ) {
+
+        return pointTransactionService.deductPoint(request);
     }
 }
