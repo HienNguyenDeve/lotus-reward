@@ -4,10 +4,10 @@ import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nguyenhien.lotus_reward.modules.checkin.dtos.CheckinRequest;
@@ -24,7 +24,7 @@ public class CheckinController {
     private final ICheckinService checkinService;
 
     @GetMapping("/status")
-    public ResponseEntity<CheckinStatusResponse> getCheckinStatus(@PathVariable UUID userId) {
+    public ResponseEntity<CheckinStatusResponse> getCheckinStatus(@RequestParam UUID userId) {
         CheckinStatusResponse result = checkinService.getCheckinStatus(userId);
         return ResponseEntity.ok().body(result);
     }
